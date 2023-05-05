@@ -37,3 +37,18 @@
 ---
 
 Thanks [Bhrugen Patel](https://www.dotnetmastery.com/)
+
+---
+
+## Note
+
+1. Add services to the container.
+
+> AddSingleton: Dịch vụ được đăng ký với phạm vi AddSingleton sẽ được tạo ra một lần duy nhất trong suốt vòng đời ứng dụng. Điều này có nghĩa là, nếu bạn sử dụng AddSingleton để đăng ký một dịch vụ, một thể hiện của dịch vụ đó sẽ được tạo ra khi ứng dụng bắt đầu chạy và sẽ được sử dụng trong suốt vòng đời ứng dụng.
+> AddSingleton thường được sử dụng cho các dịch vụ chung và có tính chất toàn cục, chẳng hạn như các dịch vụ cấu hình, các dịch vụ lưu trữ bộ đệm chung, các dịch vụ quản lý phiên, v.v.
+
+> AddScoped: Dịch vụ được đăng ký với phạm vi AddScoped sẽ được tạo ra một lần duy nhất cho mỗi yêu cầu HTTP và được sử dụng lại trong toàn bộ quá trình xử lý yêu cầu đó. Điều này có nghĩa là, nếu bạn sử dụng AddScoped để đăng ký một dịch vụ, một thể hiện của dịch vụ đó sẽ được tạo ra cho mỗi yêu cầu HTTP và sẽ được sử dụng lại trong toàn bộ quá trình xử lý yêu cầu đó. Sau khi quá trình xử lý yêu cầu kết thúc, thể hiện của dịch vụ đó sẽ bị giải phóng.
+> AddScoped thường được sử dụng cho các dịch vụ liên quan đến xử lý yêu cầu HTTP, chẳng hạn như các dịch vụ liên quan đến truy vấn cơ sở dữ liệu, các dịch vụ lưu trữ bộ đệm, các dịch vụ chứng thực, v.v.
+
+> AddTransient: Dịch vụ được đăng ký với phạm vi AddTransient sẽ được tạo ra mỗi khi có yêu cầu truy cập dịch vụ. Điều này có nghĩa là, nếu bạn sử dụng AddTransient để đăng ký một dịch vụ, một thể hiện của dịch vụ đó sẽ được tạo ra mỗi khi có yêu cầu truy cập
+> AddTransient thường được sử dụng cho các dịch vụ nhỏ, nhẹ và không tốn nhiều tài nguyên, chẳng hạn như các dịch vụ truy xuất dữ liệu không liên quan đến cơ sở dữ liệu, các dịch vụ lưu trữ bộ đệm riêng tư, các dịch vụ khởi tạo các đối tượng cục bộ, v.v.
