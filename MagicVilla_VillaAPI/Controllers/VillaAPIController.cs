@@ -117,7 +117,6 @@ namespace MagicVilla_VillaAPI.Controllers
             }
 
             var model = _mapper.Map<Villa>(updateDTO);
-            model.UpdateDate = DateTime.Now;
 
             await _villaRepository.UpdateAsync(model);
 
@@ -160,7 +159,6 @@ namespace MagicVilla_VillaAPI.Controllers
             }
 
             var model = _mapper.Map<Villa>(villaDTO);
-            model.UpdateDate = DateTime.Now;
 
             await _villaRepository.UpdateAsync(model);
 
