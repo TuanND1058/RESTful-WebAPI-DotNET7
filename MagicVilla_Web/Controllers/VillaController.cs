@@ -60,7 +60,7 @@ namespace MagicVilla_Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 VillaDTO model = JsonConvert.DeserializeObject<VillaDTO>(Convert.ToString(response.Result));
-                return View(_mapper.Map<VillaCreateDTO>(model));
+                return View(_mapper.Map<VillaUpdateDTO>(model));
             }
 
             return NotFound();
