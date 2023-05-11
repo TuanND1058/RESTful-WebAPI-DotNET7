@@ -50,16 +50,16 @@ namespace MagicVilla_Web.Controllers
                     });
             }
 
-            return View();
+            return View(villaNumberVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VillaNumberCreateDTO model)
+        public async Task<IActionResult> Create(VillaNumberCreateVM model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _villaNumberService.CreateAsync<APIResponse>(model);
+                var response = await _villaNumberService.CreateAsync<APIResponse>(model.VillaNumber);
 
                 if (response != null && response.IsSuccess)
                 {
@@ -68,6 +68,19 @@ namespace MagicVilla_Web.Controllers
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var response = await _villaNumberService.GetAsync<APIResponse>(id);
+
+            if (response != null && response.IsSuccess)
+            {
+                VillaNumberDTO model = JsonConvert.DeserializeObject<VillaNumberDTO>(Convert.ToString(response.Result));
+                return View(_mapper.Map<VillaNumberUpdateDTO>(model));
+            }
+
+            return NotFound();
         }
     }
 }
