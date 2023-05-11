@@ -16,17 +16,30 @@ namespace MagicVilla_VillaAPI.Repository
 
         public bool IsUniqueUser(string username)
         {
-            throw new NotImplementedException();
+            var user = _context.LocalUsers.FirstOrDefault(x => x.UserName == username);
+            return user == null;
         }
 
-        public Task<LoginRequestDTO> Login(LoginRequestDTO request)
+        public async Task<LoginRequestDTO> Login(LoginRequestDTO request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<LocalUser> Register(RegisterationRequestDTO request)
+        public async Task<LocalUser> Register(RegisterationRequestDTO request)
         {
-            throw new NotImplementedException();
+            LocalUser user = new()
+            {
+                Name = request.Name,
+                UserName = request.UserName,
+                Password = request.Password,
+                Role = request.Role
+            };
+
+            _context.LocalUsers.Add(user);
+            await _context.SaveChangesAsync();
+            user.Password = "";
+
+            return user;
         }
     }
 }
