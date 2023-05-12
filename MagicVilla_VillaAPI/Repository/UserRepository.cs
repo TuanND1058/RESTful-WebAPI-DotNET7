@@ -32,7 +32,11 @@ namespace MagicVilla_VillaAPI.Repository
 
             if (user == null)
             {
-                return null;
+                return new LoginResponseDTO()
+                {
+                    User = null,
+                    Token = ""
+                };
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
