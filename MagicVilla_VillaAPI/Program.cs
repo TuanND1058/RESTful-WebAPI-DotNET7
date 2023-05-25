@@ -28,10 +28,12 @@ builder.Services.AddApiVersioning(option =>
 {
     option.AssumeDefaultVersionWhenUnspecified = true;
     option.DefaultApiVersion = new ApiVersion(1, 0);
+    option.ReportApiVersions = true;
 });
 builder.Services.AddVersionedApiExplorer(option =>
 {
     option.GroupNameFormat = "'v'VVV";
+    option.SubstituteApiVersionInUrl = true;
 });
 
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
