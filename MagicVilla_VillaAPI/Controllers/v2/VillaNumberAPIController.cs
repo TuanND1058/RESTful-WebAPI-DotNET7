@@ -24,10 +24,10 @@ namespace MagicVilla_VillaAPI.Controllers.v2
             _response = new APIResponse();
         }
 
-        [HttpGet]
+        [HttpGet("GetString")]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "tuan", "nguyen" };
         }
     }
 }

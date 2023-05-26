@@ -26,6 +26,12 @@ namespace MagicVilla_VillaAPI.Controllers.v1
             _response = new APIResponse();
         }
 
+        [HttpGet("GetString")]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<APIResponse>> GetVillaNumbersAsync()
