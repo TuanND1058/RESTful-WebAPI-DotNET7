@@ -15,15 +15,18 @@ namespace MagicVilla_VillaAPI.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private string secretKey;
         private readonly IMapper _mapper;
 
-        public UserRepository(ApplicationDbContext context, IConfiguration configuration, UserManager<ApplicationUser> userManager, IMapper mapper)
+        public UserRepository(ApplicationDbContext context, IConfiguration configuration, UserManager<ApplicationUser> userManager,
+            IMapper mapper, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
             secretKey = configuration.GetValue<string>("ApiSettings:Secret");
             _mapper = mapper;
+            _roleManager = roleManager;
         }
 
         public bool IsUniqueUser(string username)
@@ -88,19 +91,22 @@ namespace MagicVilla_VillaAPI.Repository
             try
             {
                 var result = await _userManager.CreateAsync(user, request.Password);
-
                 if (result.Succeeded)
                 {
+                    if (!_roleManager.RoleExistsAsync("admin").GetAwaiter().GetResult())
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("admin"));
+                        await _roleManager.CreateAsync(new IdentityRole("customer"));
+                    }
+
                     await _userManager.AddToRoleAsync(user, "admin");
-                    var userToReturn = _context.ApplicationUsers.FirstOrDefault(x => x.UserName == request.UserName);
+                    var userToReturn = _context.ApplicationUsers.FirstOrDefault(u => u.UserName == request.UserName);
 
                     return _mapper.Map<UserDTO>(userToReturn);
                 }
             }
             catch (Exception ex)
             {
-
-                throw;
             }
 
             return new UserDTO();
